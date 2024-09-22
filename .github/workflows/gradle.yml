@@ -30,15 +30,15 @@
 #           touch ./application.yml
 #           echo "${{ secrets.APPLICATION }}" > ./application.yml
 
-#       - name: Gradle Caching
-#         uses: actions/cache@v3
-#         with:
-#           path: |
-#             ~/.gradle/caches
-#             ~/.gradle/wrapper
-#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-#           restore-keys: |
-#             ${{ runner.os }}-gradle-
+#       # - name: Gradle Caching
+#       #   uses: actions/cache@v3
+#       #   with:
+#       #     path: |
+#       #       ~/.gradle/caches
+#       #       ~/.gradle/wrapper
+#       #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#       #     restore-keys: |
+#       #       ${{ runner.os }}-gradle-
 
 #       - name: Build with Gradle
 #         run: |
@@ -100,6 +100,16 @@ jobs:
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+
+    - name: Docker build & push
+      uses: docker/build-push-action@v2
+      with:
+        context: ./blog
+        file: ./blog/Dockerfile
+        platforms: linux/arm64/v8
+        push: true
+        tags: ${{ secrets.DOCKER_REPO }}:latest
+      
 
     - name: make application.yml
       run: |
