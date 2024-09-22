@@ -11,25 +11,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody UserRequestDTO dto){
-        User newUser = userService.save(dto);
-        return newUser;
-    }
+    // POST - User 생성 컨트롤러 작성
 
-    //        return userService.save(dto);
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public User findById(@PathVariable Long id){
-        return userService.findById(id);
-    }
+    // GET - User 조회 컨트롤러 작성
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    private void userNotFoundHandler (IllegalArgumentException e){
-        System.out.println("UserController.userNotFoundHandler");
-    }
+    // IllegalArgumentException 예외처리 handler 작성
 
 
 

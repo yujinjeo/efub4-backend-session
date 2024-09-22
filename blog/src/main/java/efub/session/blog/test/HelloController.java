@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/hello")
-    @ResponseStatus(HttpStatus.OK)
-    public String hello(){
-        return "hello";
-    }
+    // GET - hello 문자열 반환 컨트롤러
+
 }
