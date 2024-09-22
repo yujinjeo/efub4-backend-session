@@ -118,11 +118,11 @@ jobs:
           touch ./application.yml
           echo "${{ secrets.APPLICATION }}" > ./application.yml
         
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
     - name: Build with Gradle
-      run: ./gradlew build -x test
+      run: |
+        cd ./blog
+        chmod +x ./gradlew
+        ./gradlew build -x test
 
     - name: Docker Build
       run: |
