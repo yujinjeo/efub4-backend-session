@@ -9,5 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     // GET - hello 문자열 반환 컨트롤러
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
+    }
 
 }
