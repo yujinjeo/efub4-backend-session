@@ -32,11 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest  // 테스트용 애플리케이션 컨텍스트
-@AutoConfigureMockMvc  // MockMvc 생성 및 자동 구성
-@Sql(scripts = "/data.sql") // 테스트 데이터 파일 자동 실행
-@ActiveProfiles("test")
-@ContextConfiguration(classes = BlogApplication.class)
-@TestPropertySource(locations = "classpath:application-test.yml")
 public class AccountControllerTest {
     @Autowired
     protected MockMvc mockMvc;
