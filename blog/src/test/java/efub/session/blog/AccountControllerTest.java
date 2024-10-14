@@ -32,6 +32,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest  // 테스트용 애플리케이션 컨텍스트
+@AutoConfigureMockMvc
+@Sql(scripts = "/data.sql")
+@ActiveProfiles("test")
+@ContextConfiguration(classes = BlogApplication.class)
+@TestPropertySource(locations = "classpath:application-test.yml")
 public class AccountControllerTest {
     @Autowired
     protected MockMvc mockMvc;
@@ -47,7 +52,8 @@ public class AccountControllerTest {
 
     @BeforeEach // 테스트 실행 전 실행하는 메서드
     public void mockMvcSetUp(){
-
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
+                .build();
     }
 
 
@@ -56,14 +62,25 @@ public class AccountControllerTest {
     @DisplayName("createAccount : 회원가입 성공")
     public void createAccount() throws Exception{
         /* given */
+        final String url = "/accounts";
+        final String email = "efub@ewhain.net";
+        final String password = "efub1234!";
+        final String nickname ="efubBack";
+        final SignUpRequestDto requestDto = createDefaultSignUpRequestDto(email , password , nickname);
 
         /* when */
+        final String requestBody = objectMapper.writeValueAsString(requestDto); /* 객체를 JSON으로 직렬화 */
 
-
-
+        ResultActions resultActions = mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody)); // 설정 내용으로 요청 전송
 
         /* then */
-
+        resultActions
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.accountId").isNotEmpty())
+                .andExpect(jsonPath("$.email").value(email))
+                .andExpect(jsonPath("$.nickname").value(nickname));
     }
 
 
