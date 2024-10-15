@@ -35,9 +35,9 @@ dependencies {
 	testRuntimeOnly 'com.h2database:h2'			 // here : H2 추가
 
 	/* redis */
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	/* Mongo DB */
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 }
 
 jar {

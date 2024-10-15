@@ -11,11 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("efubblog")
 public class AccountDocument {
 
-    @Id
-    private String id;
-    private String email;
-    private String password;
-    private String nickname;
+
 
     @Builder
     public AccountDocument (String id ,String email , String password , String nickname){
