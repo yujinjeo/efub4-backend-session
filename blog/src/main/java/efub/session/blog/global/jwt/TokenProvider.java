@@ -43,6 +43,13 @@ public class TokenProvider {
     public String createAccessToken(Account account){
         Date now = new Date();
         // 액세스토큰 발급
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime()+ accessTokenExpiration))
+                .setSubject(account.getEmail())
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
 
     }
 
@@ -72,6 +79,8 @@ public class TokenProvider {
      */
     public void saveRefreshToken(Long userId, String refreshToken){
         // Redis에 리프레시 토큰 저장
+        redisTemplate.opsForValue().set(userId.toString(),refreshToken,Duration.ofMillis(refreshTokenExpiration
+        ));
 
     }
 

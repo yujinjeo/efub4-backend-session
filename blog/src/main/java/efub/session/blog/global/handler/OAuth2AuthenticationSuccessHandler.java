@@ -36,10 +36,11 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                 .orElseThrow(() -> new EntityNotFoundException("해당 email를 가진 Account를 찾을 수 없습니다.email="+email));
 
         // AccessToken, RefreshToken 발급
-
+        String accessToken = tokenProvider.createAccessToken(account);
+        String refreshToken = tokenProvider.createRefreshToken(account);
 
         // 리프레시토큰 저장
-
+        tokenProvider.saveRefreshToken(account.getAccountId(), refreshToken);
 
         // JSON형식 응답 설정
         response.setContentType("application/json");

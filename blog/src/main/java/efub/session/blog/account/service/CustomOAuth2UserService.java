@@ -31,13 +31,15 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         // OAuth2 사용자 정보 로드
+        OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
 
 
         // 구글 OAuth2UserInfo 객체 생성
-
+        OAuth2UserInfo oAuth2UserInfo = new OAuth2UserInfo(oAuth2User.getAttributes());
 
         // DB에서 해당 사용자 조회 -> 없으면 새로 생성
-
+        Account account = accountRepository.findByEmail(oAuth2UserInfo.getEmail())
+                .orElseGet(() -> createAccount(oAuth2UserInfo));
 
         // 사용자 속성 생성
         Map<String, Object> attributes = new HashMap<>(oAuth2User.getAttributes());
