@@ -14,8 +14,8 @@ public class QueryDslConfig { //JPAQueryFactory 객체를 빈으로 등록하기
         this.entityManager = entityManager;
     }
 
-    @Bean
-    public JPAQueryFactory jpaQueryFactory() {
-        return new JPAQueryFactory(entityManager);
-    }
+//    @Bean
+//    public JPAQueryFactory jpaQueryFactory() {
+//        return new JPAQueryFactory(entityManager);
+//    }
 }

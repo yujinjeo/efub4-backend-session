@@ -66,9 +66,15 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public List<PostResponseDto> searchPost(String keyword, String writerNickname){
-        List<PostResponseDto> responseDtoList = postRepository.search(keyword,writerNickname).stream().map(post ->
-            PostResponseDto.from(post, post.getAccount().getNickname())).toList();
-        return responseDtoList;
-    }
+//    public List<PostResponseDto> searchPost(String keyword, String writerNickname){
+//
+//        /* 검색 조건에 해당하는 게시글 리스트 (List<Post>) 조회 */
+//
+//
+//        /* List<Post> → List<PostResponseDto> 변환 */
+//        List<PostResponseDto> responseDtoList = posts.stream().map(post ->
+//            PostResponseDto.from(post, post.getAccount().getNickname())).toList();
+//
+//        return responseDtoList;
+//    }
 }
